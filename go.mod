@@ -1,4 +1,4 @@
-module yahyafati/go-print-uni-freiburg
+module github.com/yahyafati/uniprint
 
 go 1.23.2
 

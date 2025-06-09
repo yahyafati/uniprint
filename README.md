@@ -46,7 +46,7 @@ go build -o uniprint
 
 ### Option 2: Download the binary
 
-If you don't want to build it yourself, you can download a precompiled binary (if available) from the [Releases](https://github.com/yahyafati/go-print-uni-freiburg/releases) section.
+If you don't want to build it yourself, you can download a precompiled binary (if available) from the [Releases](https://github.com/yahyafati/uniprint/releases) section.
 
 > ⚠️ Make sure the binary matches your OS and architecture.
 
