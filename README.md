@@ -28,8 +28,8 @@ It is based on: https://fachschaft.tf/en/studium/pool_printing/
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yahyafati/go-print-uni-freiburg.git
-cd go-print-uni-freiburg
+git clone https://github.com/yahyafati/uniprint.git
+cd uniprint
 ```
 
 2. Install Dependencies
