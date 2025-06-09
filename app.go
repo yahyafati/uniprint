@@ -34,8 +34,8 @@ var PRINTERS_LIST = []Printer{
 func loadUserCredentials() (string, string, bool) {
 	_ = godotenv.Load()
 
-	email := os.Getenv("EMAIL")
-	password := os.Getenv("PASSWORD")
+	email := os.Getenv("UNIPRINT_EMAIL")
+	password := os.Getenv("UNIPRINT_PASSWORD")
 
 	if email == "" || password == "" {
 		return "", "", false
@@ -45,7 +45,6 @@ func loadUserCredentials() (string, string, bool) {
 }
 
 func getUserCredentials() (string, string) {
-
 	reader := bufio.NewReader(os.Stdin)
 
 	// Email input
