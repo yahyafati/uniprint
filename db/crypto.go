@@ -7,8 +7,11 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
+
+	"golang.org/x/term"
 )
 
 func deriveKey(pin string) []byte {
@@ -69,9 +72,16 @@ func decrypt(ciphertext []byte, pin string) ([]byte, error) {
 
 func promptAndValidatePIN(reader *bufio.Reader, confirm bool) (string, error) {
 	re := regexp.MustCompile(`^[a-zA-Z0-9]+$`)
+	// We can remove the alpha numeric constraint now
 	for {
 		fmt.Print("Enter PIN: ")
-		pin, _ := reader.ReadString('\n')
+		passwordBytes, err := term.ReadPassword(int(os.Stdin.Fd()))
+		fmt.Println()
+		if err != nil {
+			fmt.Println("Error reading password:", err)
+			os.Exit(1)
+		}
+		pin := string(passwordBytes)
 		pin = strings.TrimSpace(pin)
 
 		if !re.MatchString(pin) {
@@ -81,7 +91,13 @@ func promptAndValidatePIN(reader *bufio.Reader, confirm bool) (string, error) {
 
 		if confirm {
 			fmt.Print("Confirm PIN: ")
-			confirmPin, _ := reader.ReadString('\n')
+			passwordBytes, err := term.ReadPassword(int(os.Stdin.Fd()))
+			fmt.Println()
+			if err != nil {
+				fmt.Println("Error reading password:", err)
+				os.Exit(1)
+			}
+			confirmPin := string(passwordBytes)
 			confirmPin = strings.TrimSpace(confirmPin)
 			if pin != confirmPin {
 				fmt.Println("PINs do not match.")
