@@ -77,5 +77,9 @@ func GetFilesToPrint() []string {
 }
 
 func AskDeleteAfterPrint() bool {
-	return ConfirmInput("Delete files after printing? (y/N)")
+	return ConfirmInput("Delete files after printing?")
+}
+
+func AskOneSidedPrint() bool {
+	return ConfirmInputWithDefault("Do you to print one-sided pages?", true)
 }

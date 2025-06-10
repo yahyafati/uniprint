@@ -73,7 +73,7 @@ func SftpCopyFiles(email, password string, files []string) {
 	}
 }
 
-func SshPrintFiles(email, password string, files []string, deleteAfter bool) {
+func SshPrintFiles(email, password string, files []string, deleteAfter bool, oneSided bool) {
 	parts := strings.Split(email, "@")
 	if len(parts) != 2 {
 		fmt.Println("Invalid email format")
@@ -134,7 +134,13 @@ func SshPrintFiles(email, password string, files []string, deleteAfter bool) {
 	// Print files
 	for _, file := range files {
 		filename := "'" + filepath.Base(file) + "'"
-		lprCmd := fmt.Sprintf("lpr -P %s %s%s", selectedPrinter,
+		lprCmd := fmt.Sprintf("lpr -P %s %s %s%s", selectedPrinter,
+			func() string {
+				if oneSided {
+					return "-o sides=one-sided "
+				}
+				return ""
+			}(),
 			func() string {
 				if deleteAfter {
 					return "-r "

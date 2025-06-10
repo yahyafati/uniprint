@@ -64,10 +64,11 @@ func main() {
 	if deleteLater {
 		fmt.Println("Files will be removed from the server once it has been printed.")
 	}
+	oneSided := prompt.AskOneSidedPrint()
 
 	tools.SftpCopyFiles(email, password, files)
 	if prompt.ConfirmInputWithDefault("Copied! Print?", true) {
-		tools.SshPrintFiles(email, password, files, deleteLater)
+		tools.SshPrintFiles(email, password, files, deleteLater, oneSided)
 	} else {
 		fmt.Println("Not Printing")
 	}
