@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/yahyafati/uniprint/db"
@@ -82,4 +83,28 @@ func AskDeleteAfterPrint() bool {
 
 func AskOneSidedPrint() bool {
 	return ConfirmInputWithDefault("Do you to print one-sided pages?", true)
+}
+
+func GetNoOfCopies() int {
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		fmt.Print("Enter number of copies (default 1): ")
+		input, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Println("Error reading input. Please try again.")
+			continue
+		}
+
+		input = strings.TrimSpace(input)
+		if input == "" {
+			return 1
+		}
+
+		num, err := strconv.Atoi(input)
+		if err != nil || num < 0 {
+			fmt.Println("Please enter a valid non-negative integer.")
+			continue
+		}
+		return num
+	}
 }
